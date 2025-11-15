@@ -1,4 +1,4 @@
-@admin_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MzIyMDkzNSwianRpIjoiYjIzMmJjN2MtMGNhYi00NWUwLThhMmYtZDA5ZTA2ZmM4OWJlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NjMyMjA5MzUsImNzcmYiOiI0NDExNzJlOC00NTQ1LTQ3NDgtOTBhYi1jY2Q1ZGNhNmRkMWQiLCJleHAiOjE3NjMyMjE4MzV9.9H0_-SXE7M0LGY7Apem2HmQrDY-UJav6gyc7JkrQiZA
+@admin_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MzI0ODQ4MywianRpIjoiYTIxNzFmZDYtYmVlZS00Y2FlLThmZmMtZDU4ZDkwZGY4MDRlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NjMyNDg0ODMsImNzcmYiOiJhNzhjMjc3MC0xYmRhLTQ0YzQtYTViZC0wOWFkOGEyNjc0OWIiLCJleHAiOjE3NjMyNDkzODN9.U3bOX1H_Z3ZMZ2N6q3ZBtd9kZV0r_ZLoHNlxzVoqFoU
 @usuario_token = {{usuario_access_token}}
 
 ### teste 1
@@ -43,3 +43,8 @@ Authorization: Bearer {{admin_token}}
 "preco": 16.50,
 "estoque": 10
 }
+
+### teste 5 deletar um ID de cupcake
+
+DELETE http://127.0.0.1:5000/api/cupcakes/12
+Authorization: Bearer {{admin_token}}

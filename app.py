@@ -120,6 +120,29 @@ def cupcakes_handler():
 
     return jsonify({"msg": "Método não permitido."}), 405
 
+@app.route('/api/cupcakes/<int:cupcake_id>', methods=['DELETE'])
+@jwt_required()
+def deletar_cupcake(cupcake_id):
+
+    user_id = get_jwt_identity()
+    user = Usuario.query.get(user_id)
+
+    if not user or not user.is_admin:
+        return jsonify({"msg": "Acesso negado: Somente administradores podem deletar cupcakes."}), 403
+
+    cupcake = Cupcake.query.get(cupcake_id)
+
+    if not cupcake:
+        return jsonify({"msg": "Cupcake não encontrado."}), 404  # 404 Not Found
+
+    try:
+        db.session.delete(cupcake)
+        db.session.commit()
+        return jsonify({"msg": f"Cupcake ID {cupcake_id} deletado com sucesso."}), 200
+
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"msg": "Erro ao deletar cupcake", "error": str(e)}), 400
 
 @app.route('/api/login', methods=['POST'])
 def login():
