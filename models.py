@@ -13,12 +13,14 @@ class Cupcake(db.Model):
     descricao = db.Column(db.Text, nullable=False)
     preco = db.Column(db.Float, nullable=False)
     estoque = db.Column(db.Integer, default=0)
+    foto_url = db.Column(db.String(255), nullable=True)
 
-    def __init__(self, nome, descricao, preco, estoque):
+    def __init__(self, nome, descricao, preco, estoque, foto_url=None):
         self.nome = nome
         self.descricao = descricao
         self.preco = preco
         self.estoque = estoque
+        self.foto_url = foto_url
 
     def to_dict(self):
         return {
@@ -27,6 +29,7 @@ class Cupcake(db.Model):
             'descricao': self.descricao,
             'preco': self.preco,
             'estoque': self.estoque
+            'foto_url': self.foto_url
         }
 
 

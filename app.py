@@ -23,23 +23,31 @@ jwt = JWTManager(app)
 def status():
     return jsonify({"status": "API da Loja de Cupcakes Online!"})
 
+
 def popular_banco():
     db.drop_all()
     db.create_all()
+    base_url = "https://placehold.co/300x200/4a2c2a/f5f5dc?text="
 
     cupcakes_data = [
-        Cupcake("Red Velvet", "Bolo de cacau vermelho com cobertura de cream cheese.", 12.00, 15),
-        Cupcake("Chocolate Belga", "Massa fofa de chocolate com ganache cremoso.", 15.00, 20),
-        Cupcake("Limão Siciliano", "Sabor cítrico e refrescante com cobertura de merengue.", 11.50, 10),
-        Cupcake("Cenoura com Brigadeiro", "Massa de cenoura clássica com cobertura de brigadeiro gourmet.", 13.00, 25),
-        Cupcake("Baunilha e Doce de Leite", "Massa de baunilha com recheio de doce de leite argentino.", 14.00, 12),
-        Cupcake("Oreo", "Massa e cobertura com pedacinhos do famoso biscoito.", 16.00, 18),
-        Cupcake("Morango e Chantilly", "Massa leve de morango com cobertura fresca de chantilly.", 12.50, 14),
-        Cupcake("Café e Cardamomo", "Sabor exótico de café e especiarias.", 14.50, 8),
-        Cupcake("Churros", "Massa de canela com cobertura de açúcar e doce de leite.", 13.50, 16),
-        Cupcake("Abacaxi com Coco", "Sabor tropical e úmido.", 11.00, 11),
-        Cupcake("Menta e Chocolate", "Combinação refrescante e intensa.", 15.50, 13),
-        Cupcake("Pistache", "Sabor sofisticado e delicado.", 17.00, 9),
+        Cupcake("Red Velvet", "Bolo de cacau vermelho com cobertura de cream cheese.", 12.00, 15,
+                f"{base_url}Red+Velvet"),
+        Cupcake("Chocolate Belga", "Massa fofa de chocolate com ganache cremoso.", 15.00, 20,
+                f"{base_url}Chocolate+Belga"),
+        Cupcake("Limão Siciliano", "Sabor cítrico e refrescante com cobertura de merengue.", 11.50, 10,
+                f"{base_url}Limao+Siciliano"),
+        Cupcake("Cenoura com Brigadeiro", "Massa de cenoura clássica com cobertura de brigadeiro gourmet.", 13.00, 25,
+                f"{base_url}Cenoura"),
+        Cupcake("Baunilha e Doce de Leite", "Massa de baunilha com recheio de doce de leite argentino.", 14.00, 12,
+                f"{base_url}Baunilha"),
+        Cupcake("Oreo", "Massa e cobertura com pedacinhos do famoso biscoito.", 16.00, 18, f"{base_url}Oreo"),
+        Cupcake("Morango e Chantilly", "Massa leve de morango com cobertura fresca de chantilly.", 12.50, 14,
+                f"{base_url}Morango"),
+        Cupcake("Café e Cardamomo", "Sabor exótico de café e especiarias.", 14.50, 8, f"{base_url}Cafe+Cardamomo"),
+        Cupcake("Churros", "Massa de canela com cobertura de açúcar e doce de leite.", 13.50, 16, f"{base_url}Churros"),
+        Cupcake("Abacaxi com Coco", "Sabor tropical e úmido.", 11.00, 11, f"{base_url}Abacaxi"),
+        Cupcake("Menta e Chocolate", "Combinação refrescante e intensa.", 15.50, 13, f"{base_url}Menta"),
+        Cupcake("Pistache", "Sabor sofisticado e delicado.", 17.00, 9, f"{base_url}Pistache"),
     ]
 
     for cupcake in cupcakes_data:
@@ -99,7 +107,8 @@ def cupcakes_handler():
                 nome=data['nome'],
                 descricao=data['descricao'],
                 preco=data['preco'],
-                estoque=data.get('estoque', 1)
+                estoque=data.get('estoque', 1),
+                foto_url=data.get('foto_url', None)
             )
             db.session.add(new_cupcake)
             db.session.commit()
