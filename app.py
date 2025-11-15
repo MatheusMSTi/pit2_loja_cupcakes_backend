@@ -27,7 +27,7 @@ def status():
 def popular_banco():
     db.drop_all()
     db.create_all()
-    base_url = "https://i.pinimg.com/736x/76/2e/91/762e9163a53e557058ac8e48c877e2f5.jpg"
+    base_url = "https://raw.githubusercontent.com/MatheusMSTi/pit2_loja_cupcakes_frontend/refs/heads/main/img/miau%20catcafe.png"
 
     cupcakes_data = [
         Cupcake("Red Velvet", "Bolo de cacau vermelho com cobertura de cream cheese.", 12.00, 15,
