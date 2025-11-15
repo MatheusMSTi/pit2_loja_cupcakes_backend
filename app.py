@@ -11,19 +11,13 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'loja_cupcakes.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config["JWT_SECRET_KEY"] = "super-secret-key-para-o-pit2"
+app.config["JWT_TOKEN_LOCATION"] = ["headers"]
+app.config["JWT_CSRF_PROTECT"] = False
 
 db.init_app(app)
 bcrypt.init_app(app)
 jwt = JWTManager(app)
 
-@app.route('/api/cupcakes', methods=['GET'])
-def listar_cupcakes():
-
-    cupcakes = Cupcake.query.all()
-
-    cupcakes_json = [cupcake.to_dict() for cupcake in cupcakes]
-
-    return jsonify(cupcakes_json)
 
 @app.route('/api/status', methods=['GET'])
 def status():
@@ -80,6 +74,44 @@ def register():
     return jsonify({"msg": "Usuário registrado com sucesso", "email": email}), 201
 
 
+@app.route('/api/cupcakes', methods=['GET', 'POST'])
+@jwt_required(optional=True)
+def cupcakes_handler():
+    if request.method == 'GET':
+        cupcakes = Cupcake.query.all()
+        cupcakes_json = [cupcake.to_dict() for cupcake in cupcakes]
+        return jsonify(cupcakes_json)
+
+    elif request.method == 'POST':
+
+        user_id = get_jwt_identity()
+        if not user_id:
+            return jsonify({"msg": "Token de autenticação ausente ou inválido."}), 401
+
+        user = Usuario.query.get(user_id)
+        if not user or not user.is_admin:
+            return jsonify(
+                {"msg": "Acesso negado: Somente administradores podem adicionar cupcakes."}), 403
+
+        data = request.get_json()
+        try:
+            new_cupcake = Cupcake(
+                nome=data['nome'],
+                descricao=data['descricao'],
+                preco=data['preco'],
+                estoque=data.get('estoque', 1)
+            )
+            db.session.add(new_cupcake)
+            db.session.commit()
+            return jsonify(new_cupcake.to_dict()), 201
+
+        except Exception as e:
+            db.session.rollback()
+            return jsonify({"msg": "Erro ao adicionar cupcake", "error": str(e)}), 400
+
+    return jsonify({"msg": "Método não permitido."}), 405
+
+
 @app.route('/api/login', methods=['POST'])
 def login():
     data = request.get_json()
@@ -89,7 +121,7 @@ def login():
     user = Usuario.query.filter_by(email=email).first()
 
     if user and user.check_password(password):
-        access_token = create_access_token(identity=user.id)
+        access_token = create_access_token(identity=str(user.id))
 
         return jsonify(access_token=access_token, is_admin=user.is_admin, user_id=user.id), 200
 

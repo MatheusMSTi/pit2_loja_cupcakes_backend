@@ -1,0 +1,45 @@
+@admin_token = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MzIyMDkzNSwianRpIjoiYjIzMmJjN2MtMGNhYi00NWUwLThhMmYtZDA5ZTA2ZmM4OWJlIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NjMyMjA5MzUsImNzcmYiOiI0NDExNzJlOC00NTQ1LTQ3NDgtOTBhYi1jY2Q1ZGNhNmRkMWQiLCJleHAiOjE3NjMyMjE4MzV9.9H0_-SXE7M0LGY7Apem2HmQrDY-UJav6gyc7JkrQiZA
+@usuario_token = {{usuario_access_token}}
+
+### teste 1
+
+POST http://127.0.0.1:5000/api/register
+Content-Type: application/json
+
+{
+"email": "funcionario@cupcakes.com",
+"password": "senha456",
+"is_admin": false
+}
+###
+---
+
+### teste 2 gerar token
+
+POST http://127.0.0.1:5000/api/login
+Content-Type: application/json
+
+{
+"email": "admin@cupcakes.com",
+"password": "admin123"
+}
+###
+---
+
+### teste 3 verificar o token
+
+GET http://127.0.0.1:5000/api/protected
+Authorization: Bearer {{admin_token}}
+
+### teste 4 (apos juntar o get e post no app.py)
+
+POST http://127.0.0.1:5000/api/cupcakes
+Content-Type: application/json
+Authorization: Bearer {{admin_token}}
+
+{
+"nome": "Caramelo Salgado",
+"descricao": "Cupcake cremoso de baunilha com recheio de caramelo salgado.",
+"preco": 16.50,
+"estoque": 10
+}
