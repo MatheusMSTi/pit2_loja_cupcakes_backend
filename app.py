@@ -28,10 +28,9 @@ def popular_banco():
     db.drop_all()
     db.create_all()
 
-    imagem_unica_url = "https://raw.githubusercontent.com/MatheusMSTi/pit2_loja_cupcakes_frontend/refs/heads/main/img/unnamed.jpg"
+    imagem_unica_url = "https://raw.githubusercontent.com/MatheusMSTi/pit2_loja_cupcakes_frontend/refs/heads/main/img/Chocolate%20cupcake%20-%20mary%20berry.jpg"
 
     cupcakes_data = [
-        # Passa a URL ÚNICA como o argumento foto_url para todos
         Cupcake("Red Velvet", "Bolo de cacau vermelho com cobertura de cream cheese.", 12.00, 15, imagem_unica_url),
         Cupcake("Chocolate Belga", "Massa fofa de chocolate com ganache cremoso.", 15.00, 20, imagem_unica_url),
         Cupcake("Limão Siciliano", "Sabor cítrico e refrescante com cobertura de merengue.", 11.50, 10,
