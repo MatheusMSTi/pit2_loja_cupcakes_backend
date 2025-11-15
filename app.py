@@ -27,7 +27,7 @@ def status():
 def popular_banco():
     db.drop_all()
     db.create_all()
-    base_url = "https://placehold.co/300x200/4a2c2a/f5f5dc?text="
+    base_url = "https://i.pinimg.com/736x/76/2e/91/762e9163a53e557058ac8e48c877e2f5.jpg"
 
     cupcakes_data = [
         Cupcake("Red Velvet", "Bolo de cacau vermelho com cobertura de cream cheese.", 12.00, 15,
