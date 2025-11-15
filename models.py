@@ -39,7 +39,7 @@ class Usuario(db.Model):
     senha_hash = db.Column(db.String(128), nullable=False)
     is_admin = db.Column(db.Boolean, default=False)
 
-    def __init__(self, email, senha_hash, is_admin=False):
+    def __init__(self, email, is_admin=False):
         self.email = email
         self.is_admin = is_admin
 
