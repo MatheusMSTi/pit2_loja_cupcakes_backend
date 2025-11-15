@@ -1,21 +1,23 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, request
 from flask_cors import CORS
-from models import db, Cupcake, Usuario
+from models import db, Cupcake, Usuario, bcrypt
 import os
+from flask_jwt_extended import create_access_token, jwt_required, JWTManager, get_jwt_identity
 
 app = Flask(__name__)
-
 CORS(app)
 
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'loja_cupcakes.db')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.config["JWT_SECRET_KEY"] = "super-secret-key-para-o-pit2"
 
 db.init_app(app)
+bcrypt.init_app(app)
+jwt = JWTManager(app)
 
 @app.route('/api/cupcakes', methods=['GET'])
 def listar_cupcakes():
-    """Rota para retornar a lista de todos os cupcakes disponíveis."""
 
     cupcakes = Cupcake.query.all()
 
@@ -49,11 +51,57 @@ def popular_banco():
     for cupcake in cupcakes_data:
         db.session.add(cupcake)
 
-    admin = Usuario("admin@cupcakes.com", "senha_hash_segura", is_admin=True)
+    admin = Usuario(email="admin@cupcakes.com", is_admin=True)
+    admin.set_password("admin123")
     db.session.add(admin)
 
     db.session.commit()
-    print("Banco de dados populado com 12 cupcakes e usuário admin.")
+    print("Banco de dados populado com 12 cupcakes e usuário admin (Senha: admin123).")
+
+
+# rotas de autenticação (Controller)
+
+@app.route('/api/register', methods=['POST'])
+def register():
+    data = request.get_json()
+    email = data.get('email')
+    password = data.get('password')
+    is_admin = data.get('is_admin', False)
+
+    if Usuario.query.filter_by(email=email).first():
+        return jsonify({"msg": "Email já registrado"}), 400
+
+    new_user = Usuario(email=email, is_admin=is_admin)
+    new_user.set_password(password)
+
+    db.session.add(new_user)
+    db.session.commit()
+
+    return jsonify({"msg": "Usuário registrado com sucesso", "email": email}), 201
+
+
+@app.route('/api/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    email = data.get('email')
+    password = data.get('password')
+
+    user = Usuario.query.filter_by(email=email).first()
+
+    if user and user.check_password(password):
+        access_token = create_access_token(identity=user.id)
+
+        return jsonify(access_token=access_token, is_admin=user.is_admin, user_id=user.id), 200
+
+    return jsonify({"msg": "Email ou senha incorretos"}), 401
+
+
+@app.route('/api/protected', methods=['GET'])
+@jwt_required()
+def protected():
+
+    current_user_id = get_jwt_identity()
+    return jsonify(logged_in_as=current_user_id, message="Você está logado e tem acesso a este recurso!"), 200
 
 if __name__ == '__main__':
     with app.app_context():

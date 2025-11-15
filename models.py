@@ -1,6 +1,8 @@
 from flask_sqlalchemy import SQLAlchemy
+from flask_bcrypt import Bcrypt
 
 db = SQLAlchemy()
+bcrypt = Bcrypt()
 
 
 class Cupcake(db.Model):
@@ -19,7 +21,6 @@ class Cupcake(db.Model):
         self.estoque = estoque
 
     def to_dict(self):
-        """Método para retornar o objeto como um dicionário (útil para a API)"""
         return {
             'id': self.id,
             'nome': self.nome,
@@ -27,6 +28,7 @@ class Cupcake(db.Model):
             'preco': self.preco,
             'estoque': self.estoque
         }
+
 
 
 class Usuario(db.Model):
@@ -39,5 +41,11 @@ class Usuario(db.Model):
 
     def __init__(self, email, senha_hash, is_admin=False):
         self.email = email
-        self.senha_hash = senha_hash
         self.is_admin = is_admin
+
+    def set_password(self, password):
+        self.senha_hash = bcrypt.generate_password_hash(password).decode('utf-8')
+
+    def check_password(self, password):
+        return bcrypt.check_password_hash(self.senha_hash, password)
+

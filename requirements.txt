@@ -3,3 +3,5 @@ Flask-SQLAlchemy
 Flask-CORS
 pytest
 pytest-cov
+Flask-Bcrypt
+Flask-JWT-Extended
