@@ -27,31 +27,32 @@ def status():
 def popular_banco():
     db.drop_all()
     db.create_all()
-    base_url = "https://raw.githubusercontent.com/MatheusMSTi/pit2_loja_cupcakes_frontend/refs/heads/main/img/miau%20catcafe.png"
+
+    imagem_unica_url = "https://raw.githubusercontent.com/MatheusMSTi/pit2_loja_cupcakes_frontend/refs/heads/main/img/unnamed.jpg"
 
     cupcakes_data = [
-        Cupcake("Red Velvet", "Bolo de cacau vermelho com cobertura de cream cheese.", 12.00, 15,
-                f"{base_url}Red+Velvet"),
-        Cupcake("Chocolate Belga", "Massa fofa de chocolate com ganache cremoso.", 15.00, 20,
-                f"{base_url}Chocolate+Belga"),
+        # Passa a URL ÚNICA como o argumento foto_url para todos
+        Cupcake("Red Velvet", "Bolo de cacau vermelho com cobertura de cream cheese.", 12.00, 15, imagem_unica_url),
+        Cupcake("Chocolate Belga", "Massa fofa de chocolate com ganache cremoso.", 15.00, 20, imagem_unica_url),
         Cupcake("Limão Siciliano", "Sabor cítrico e refrescante com cobertura de merengue.", 11.50, 10,
-                f"{base_url}Limao+Siciliano"),
+                imagem_unica_url),
         Cupcake("Cenoura com Brigadeiro", "Massa de cenoura clássica com cobertura de brigadeiro gourmet.", 13.00, 25,
-                f"{base_url}Cenoura"),
+                imagem_unica_url),
         Cupcake("Baunilha e Doce de Leite", "Massa de baunilha com recheio de doce de leite argentino.", 14.00, 12,
-                f"{base_url}Baunilha"),
-        Cupcake("Oreo", "Massa e cobertura com pedacinhos do famoso biscoito.", 16.00, 18, f"{base_url}Oreo"),
+                imagem_unica_url),
+        Cupcake("Oreo", "Massa e cobertura com pedacinhos do famoso biscoito.", 16.00, 18, imagem_unica_url),
         Cupcake("Morango e Chantilly", "Massa leve de morango com cobertura fresca de chantilly.", 12.50, 14,
-                f"{base_url}Morango"),
-        Cupcake("Café e Cardamomo", "Sabor exótico de café e especiarias.", 14.50, 8, f"{base_url}Cafe+Cardamomo"),
-        Cupcake("Churros", "Massa de canela com cobertura de açúcar e doce de leite.", 13.50, 16, f"{base_url}Churros"),
-        Cupcake("Abacaxi com Coco", "Sabor tropical e úmido.", 11.00, 11, f"{base_url}Abacaxi"),
-        Cupcake("Menta e Chocolate", "Combinação refrescante e intensa.", 15.50, 13, f"{base_url}Menta"),
-        Cupcake("Pistache", "Sabor sofisticado e delicado.", 17.00, 9, f"{base_url}Pistache"),
+                imagem_unica_url),
+        Cupcake("Café e Cardamomo", "Sabor exótico de café e especiarias.", 14.50, 8, imagem_unica_url),
+        Cupcake("Churros", "Massa de canela com cobertura de açúcar e doce de leite.", 13.50, 16, imagem_unica_url),
+        Cupcake("Abacaxi com Coco", "Sabor tropical e úmido.", 11.00, 11, imagem_unica_url),
+        Cupcake("Menta e Chocolate", "Combinação refrescante e intensa.", 15.50, 13, imagem_unica_url),
+        Cupcake("Pistache", "Sabor sofisticado e delicado.", 17.00, 9, imagem_unica_url),
     ]
 
     for cupcake in cupcakes_data:
         db.session.add(cupcake)
+
 
     admin = Usuario(email="admin@cupcakes.com", is_admin=True)
     admin.set_password("admin123")
