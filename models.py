@@ -28,7 +28,7 @@ class Cupcake(db.Model):
             'nome': self.nome,
             'descricao': self.descricao,
             'preco': self.preco,
-            'estoque': self.estoque
+            'estoque': self.estoque,
             'foto_url': self.foto_url
         }
 
