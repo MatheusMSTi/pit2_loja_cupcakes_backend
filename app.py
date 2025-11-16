@@ -31,22 +31,22 @@ def popular_banco():
     imagem_unica_url = "https://raw.githubusercontent.com/MatheusMSTi/pit2_loja_cupcakes_frontend/refs/heads/main/img/Chocolate%20cupcake%20-%20mary%20berry.jpg"
 
     cupcakes_data = [
-        Cupcake("Red Velvet", "Bolo de cacau vermelho com cobertura de cream cheese.", 12.00, 15, imagem_unica_url),
-        Cupcake("Chocolate Belga", "Massa fofa de chocolate com ganache cremoso.", 15.00, 20, imagem_unica_url),
-        Cupcake("Limão Siciliano", "Sabor cítrico e refrescante com cobertura de merengue.", 11.50, 10,
+        Cupcake("Red Velvet", "Bolo de cacau vermelho com cobertura de cream cheese.", 3.99, 15, imagem_unica_url),
+        Cupcake("Chocolate Belga", "Massa fofa de chocolate com ganache cremoso.", 2.99, 20, imagem_unica_url),
+        Cupcake("Limão Siciliano", "Sabor cítrico e refrescante com cobertura de merengue.", 2.50, 10,
                 imagem_unica_url),
-        Cupcake("Cenoura com Brigadeiro", "Massa de cenoura clássica com cobertura de brigadeiro gourmet.", 13.00, 25,
+        Cupcake("Cenoura com Brigadeiro", "Massa de cenoura clássica com cobertura de brigadeiro gourmet.", 3.25, 25,
                 imagem_unica_url),
-        Cupcake("Baunilha e Doce de Leite", "Massa de baunilha com recheio de doce de leite argentino.", 14.00, 12,
+        Cupcake("Baunilha e Doce de Leite", "Massa de baunilha com recheio de doce de leite argentino.", 2.75, 12,
                 imagem_unica_url),
-        Cupcake("Oreo", "Massa e cobertura com pedacinhos do famoso biscoito.", 16.00, 18, imagem_unica_url),
-        Cupcake("Morango e Chantilly", "Massa leve de morango com cobertura fresca de chantilly.", 12.50, 14,
+        Cupcake("Oreo", "Massa e cobertura com pedacinhos do famoso biscoito.", 2.20, 18, imagem_unica_url),
+        Cupcake("Morango e Chantilly", "Massa leve de morango com cobertura fresca de chantilly.", 4.00, 14,
                 imagem_unica_url),
-        Cupcake("Café e Cardamomo", "Sabor exótico de café e especiarias.", 14.50, 8, imagem_unica_url),
-        Cupcake("Churros", "Massa de canela com cobertura de açúcar e doce de leite.", 13.50, 16, imagem_unica_url),
-        Cupcake("Abacaxi com Coco", "Sabor tropical e úmido.", 11.00, 11, imagem_unica_url),
-        Cupcake("Menta e Chocolate", "Combinação refrescante e intensa.", 15.50, 13, imagem_unica_url),
-        Cupcake("Pistache", "Sabor sofisticado e delicado.", 17.00, 9, imagem_unica_url),
+        Cupcake("Café e Cardamomo", "Sabor exótico de café e especiarias.", 4.50, 8, imagem_unica_url),
+        Cupcake("Churros", "Massa de canela com cobertura de açúcar e doce de leite.", 3.50, 16, imagem_unica_url),
+        Cupcake("Abacaxi com Coco", "Sabor tropical e úmido.", 1.99, 11, imagem_unica_url),
+        Cupcake("Menta e Chocolate", "Combinação refrescante e intensa.", 1.99, 13, imagem_unica_url),
+        Cupcake("Pistache", "Sabor sofisticado e delicado.", 2.99, 9, imagem_unica_url),
     ]
 
     for cupcake in cupcakes_data:
